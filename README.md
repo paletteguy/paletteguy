@@ -13,6 +13,7 @@
 
 **Contact details**<br>
 <br>
+**Company:** Opdal Enterprise<br>
 **Address:** Nordvangen 13, DK-4600 Køge<br>
 **Phone:** +45 42 40 42 82<br>
 **Email:** karsten.s.opdal@gmail.com<br>

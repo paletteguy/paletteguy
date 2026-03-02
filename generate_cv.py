@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import io
 from PIL import Image
@@ -175,6 +177,7 @@ p.paragraph_format.line_spacing = Pt(11)
 contact_lines = [
     ('Contact details', ''),
     ('',''),
+    ('Company:', 'Opdal Enterprise'),
     ('Address:', 'Nordvangen 13, DK-4600 Køge'),
     ('Phone:', '+45 42 40 42 82'),
     ('Email:', 'karsten.s.opdal@gmail.com'),
