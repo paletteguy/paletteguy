@@ -183,8 +183,7 @@ contact_lines = [
     ('Email:', 'karsten.s.opdal@gmail.com'),
     ('LinkedIn:', 'https://linkedin.com/in/karstenopdal-7a11512'),
     ('Web:', 'https://opdal.dk'),
-    ('GitHub:', 'paletteguy'),
-    ('GitHub profile:', 'https://github.com/paletteguy/profile'),
+    ('GitHub profile:', 'https://github.com/paletteguy'),
 ]
 for i, (label, value) in enumerate(contact_lines):
     if i > 0:

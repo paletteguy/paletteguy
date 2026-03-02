@@ -19,8 +19,7 @@
 **Email:** karsten.s.opdal@gmail.com<br>
 **LinkedIn:** https://linkedin.com/in/karstenopdal-7a11512<br>
 **Web:** https://opdal.dk<br>
-**GitHub:** paletteguy<br>
-**GitHub profile:** https://github.com/paletteguy/profile
+**GitHub profile:** https://github.com/paletteguy
 
 </td>
 </tr>
