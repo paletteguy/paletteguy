@@ -14,6 +14,7 @@
 **Contact details**<br>
 <br>
 **Company:** Opdal Enterprise<br>
+**CVR:** 31357667<br>
 **Address:** Nordvangen 13, DK-4600 Køge<br>
 **Phone:** +45 42 40 42 82<br>
 **Email:** karsten.s.opdal@gmail.com<br>
@@ -49,6 +50,20 @@ C++ (C++23) · Embedded Linux · Yocto · Linux kernel · Qt/QML (Qt 3–6) · P
 
 ---
 
+## Languages
+
+**Danish:** Native speaker (written and spoken)
+
+**English:** Fluent — second language used throughout career, full professional proficiency
+
+**Norwegian:** Fluent understanding (spoken and written), conversational speaking — 25 years' exposure, Norwegian spouse
+
+**Swedish:** Strong understanding (spoken and written), near-conversational speaking — 30 years' exposure, neighbouring country
+
+**German:** Good understanding (spoken and written), speaking somewhat rusty — 10 years during education
+
+---
+
 ## Experience
 
 ### Laerdal Medical
@@ -61,10 +76,10 @@ October 2010 – February 2026 (15 years 5 months)
 - Linux kernel configuration, debugging, patching, and Device Tree customization across i.MX6, i.MX8M Plus, and Intel x86 — board bring-up, peripheral enablement, pin muxing, clock trees, and driver troubleshooting.
 - Developed real-time simulation engine controlling medical manikins (SimMom, SimBaby, MammaAnne, SimMan ALS) via CAN bus or IOC controller and physiological modelling. C++ (up to C++23) with Boost, Qt 3–6 with deep QML expertise for embedded UIs. Proficient in C#.
 - ALSA audio pipelines for clinical simulation. Bluetooth expert with patches to BlueZ and Qt Bluetooth stacks.
-- Created SimServer Imager (Qt6/C++/QML) for managed WIC/VSI/SPU deployment and CDN distribution. Built VEX Kernel Checker — AI-assisted CVE analysis integrated with Dependency-Track. Built cross-platform companion app.
+- Created SimServer Imager (Qt6/C++/QML) for managed WIC/VSI/SPU deployment and CDN distribution. Built VEX Kernel Checker — AI-assisted CVE analysis integrated with Dependency-Track.
 - Built SSH Certificate Portal (FastAPI/Python) — self-service time-limited SSH certificates with Azure AD OIDC, HSM-protected CA signing (RSA/ED25519/ECDSA), deployed on Azure App Service.
 - Designed Azure Key Vault HSM signing workflow for RAUC bundles and secure boot — non-exportable keys, automated renewal via Azure Automation, multi-environment CI integration.
-- Built SimServer Companion — AI-powered diagnostic platform using Claude/Gemini/OpenAI for crash analysis across SimPad, LinkBox, and CAN firmware. Jira automation, source context integration. Delivered as CLI, VS Code extension, and Tauri desktop app.
+- Built Jira Analyse Companion — AI-powered diagnostic platform using Claude/Gemini/OpenAI for crash analysis across SimPad, LinkBox, and CAN firmware. Jira automation, source context integration. Delivered as CLI, VS Code extension, and Tauri desktop app.
 
 ### Oscilloscope
 *Senior Software Engineer Consulting*
@@ -209,4 +224,5 @@ Basic business school
 August 1987 – June 1988
 
 **Krogaardskolen**
+High school diploma
 1976 – 1987
