@@ -1,254 +1,50 @@
 #!/usr/bin/env python3
 
+import json
 import os
-import io
 import subprocess
-from PIL import Image
+from datetime import date
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 
-# ============================================================
-# CV DATA — single source of truth for .docx, .pdf, and .md
-# ============================================================
-
-CV_DATA = {
-    'name': 'Karsten Sperling Opdal',
-    'tagline': 'Developing Embedded Systems into the future of AI',
-    'photo': 'me.png',
-    'contact': [
-        ('Company:', 'Opdal Enterprise'),
-        ('CVR:', '31357667'),
-        ('Address:', 'Nordvangen 13, DK-4600 Køge'),
-        ('Phone:', '+45 42 40 42 82'),
-        ('Email:', 'karsten.s.opdal@gmail.com'),
-        ('LinkedIn:', 'https://linkedin.com/in/karstenopdal-7a11512'),
-        ('Web:', 'https://opdal.dk'),
-        ('GitHub profile:', 'https://github.com/paletteguy'),
-    ],
-    'summary': (
-        "I make embedded Linux do what it's told \u2014 on hardware where failure isn't an option.\n\n"
-        "For 15 years at Laerdal Medical, I was the architect behind SimPad's embedded platform \u2014 owning "
-        "everything from the Yocto build system delivering production Linux across ARM and x86, to the real-time "
-        "simulation engine that brings medical manikins to life via CAN bus, IOC controllers, and physiological "
-        "modelling. I evolved the build system through six major Yocto releases (Rocko to Scarthgap), migrated "
-        "the platform from Ubuntu to a custom distribution with RAUC A/B OTA updates and HSM-signed security, "
-        "and architected CI/CD pipelines with SBOM generation and CVE tracking for medical device compliance. "
-        "Along the way I built Qt/QML touch-screen UIs, ALSA audio pipelines, WiFi/Bluetooth integration "
-        "(with patches contributed to BlueZ and Qt Bluetooth), and a suite of internal tools \u2014 from an "
-        "AI-powered diagnostic platform to an SSH certificate portal and a cross-platform device imager.\n\n"
-        "Before Laerdal, I spent a decade in the Nokia ecosystem \u2014 developing the user interfaces for the "
-        "iconic 3210 and 3310, implementing concatenated SMS and T9 input, and building simulation tools that "
-        "let engineers develop phone software in Visual Studio without touching hardware. I debugged firmware "
-        "issues nobody else could crack, including a battery drain bug that improved battery lifetime by 30%. "
-        "At Infineon, I shipped the Nokia 2110 low-cost platform where every kilobyte counted.\n\n"
-        "I own the full stack from silicon to screen: board bring-up on i.MX6, i.MX8, and x86, Linux kernel "
-        "debugging and Device Tree customization, C++ services in real-time, and secure OTA deployment. "
-        "I've integrated AI deeply into my engineering workflow \u2014 from AI-assisted code generation and review "
-        "to building custom tooling around LLMs for debugging and documentation.\n\n"
-        "30+ years from Nokia handsets to medical devices. Now looking for the next platform worth building.\n\n"
-        "Copenhagen, Denmark | Open to remote across Europe"
-    ),
-    'skills': (
-        'C++ (C++23) \u00b7 Embedded Linux \u00b7 Yocto \u00b7 Linux kernel \u00b7 Qt/QML (Qt 3\u20136) \u00b7 Python \u00b7 '
-        'WiFi/Bluetooth \u00b7 CI/CD \u00b7 Boost \u00b7 AI-assisted engineering'
-    ),
-    'languages': [
-        ('Danish', 'Native speaker (written and spoken)'),
-        ('English', 'Fluent \u2014 second language used throughout career, full professional proficiency'),
-        ('Norwegian', "Fluent understanding (spoken and written), conversational speaking \u2014 25 years' exposure, Norwegian spouse"),
-        ('Swedish', "Strong understanding (spoken and written), near-conversational speaking \u2014 30 years' exposure, neighbouring country"),
-        ('German', 'Good understanding (spoken and written), speaking somewhat rusty \u2014 10 years during education'),
-    ],
-    'experience': [
-        {
-            'company': 'Laerdal Medical',
-            'title': 'Senior Software Engineer Consulting',
-            'period': 'October 2010 \u2013 February 2026 (15 years 5 months)',
-            'bullets': [
-                'Senior Embedded Software Engineer / Build System Architect for SimPad devices / simulators and SimMan3G product lines.',
-                'Lead maintainer of Yocto/OpenEmbedded build platform delivering production Linux across ARM32, ARM64, x86-32, and x86-64. Evolved through six major Yocto releases (Rocko to Scarthgap). Migrated from Ubuntu to custom distribution with RAUC A/B OTA updates and Azure Key Vault HSM signing.',
-                'Architected multi-platform CI/CD pipelines with GitHub Actions, SBOM generation, and automated CVE tracking for medical device compliance.',
-                'Linux kernel configuration, debugging, patching, and Device Tree customization across i.MX6, i.MX8M Plus, and Intel x86 \u2014 board bring-up, peripheral enablement, pin muxing, clock trees, and driver troubleshooting.',
-                'Developed real-time simulation engine controlling medical manikins (SimMom, SimBaby, MammaAnne, SimMan ALS) via CAN bus or IOC controller and physiological modelling. C++ (up to C++23) with Boost, Qt 3\u20136 with deep QML expertise for embedded UIs. Proficient in C#.',
-                'ALSA audio pipelines for clinical simulation. Bluetooth expert with patches to BlueZ and Qt Bluetooth stacks.',
-                'Created SimServer Imager (Qt6/C++/QML) for managed WIC/VSI/SPU deployment and CDN distribution. Built VEX Kernel Checker \u2014 AI-assisted CVE analysis integrated with Dependency-Track.',
-                'Built SSH Certificate Portal (FastAPI/Python) \u2014 self-service time-limited SSH certificates with Azure AD OIDC, HSM-protected CA signing (RSA/ED25519/ECDSA), deployed on Azure App Service.',
-                'Designed Azure Key Vault HSM signing workflow for RAUC bundles and secure boot \u2014 non-exportable keys, automated renewal via Azure Automation, multi-environment CI integration.',
-                'Built Jira Analyse Companion \u2014 AI-powered diagnostic platform using Claude/Gemini/OpenAI for crash analysis across SimPad, LinkBox, and CAN firmware. Jira automation, source context integration. Delivered as CLI, VS Code extension, and Tauri desktop app.',
-            ],
-            'page_break_after': True,
-        },
-        {
-            'company': 'Oscilloscope',
-            'title': 'Senior Software Engineer Consulting',
-            'period': 'October 2010 \u2013 June 2019 (8 years 9 months)',
-            'bullets': ['Freelance'],
-        },
-        {
-            'company': 'Nokia',
-            'title': 'Software Engineering Specialist',
-            'period': 'April 2010 \u2013 October 2010 (7 months)',
-            'bullets': [
-                'I excelled in identifying and resolving complex firmware issues at Nokia, significantly enhancing product performance.',
-                'Specialized in debugging intricate hardware/software interaction bugs on mobile platforms.',
-                'Successfully fixed a battery drain issue that had persisted for years, improving battery lifetime by 30%.',
-                'Developed critical skills in embedded systems analysis and problem-solving within a leading technology company.',
-            ],
-        },
-        {
-            'company': 'Nokia Mobile Phones',
-            'title': 'Senior Software Engineering Consultant',
-            'period': 'September 2008 \u2013 February 2010 (1 year 6 months)',
-            'bullets': [
-                'Provided expert consultation on the S40 platform software, focusing on bug fixing and error correction.',
-                'Debugged firmware issues across the S40 software stack to enhance performance and reliability.',
-                'Collaborated with cross-functional teams to ensure timely resolution of software defects, improving user experience.',
-            ],
-            'page_break_after': True,
-        },
-        {
-            'company': 'Infineon',
-            'title': 'Software Expert',
-            'period': 'October 2007 \u2013 September 2008 (1 year)',
-            'bullets': [
-                'Developed the Nokia 2110 low-cost phone platform during an expat assignment in Copenhagen.',
-                'Optimized embedded software for resource-constrained hardware, ensuring efficient use of memory.',
-                'Delivered high-quality software under tight deadlines, focusing on minimizing resource usage.',
-            ],
-        },
-        {
-            'company': 'Thors\u00f8 Data',
-            'title': 'Software Expert',
-            'period': 'October 2007 \u2013 September 2008 (1 year)',
-            'bullets': ['In house Senior Contract Software Engineer'],
-        },
-        {
-            'company': 'Tang-Data A/S',
-            'title': 'Senior Software Engineer',
-            'period': 'March 2007 \u2013 October 2007 (8 months)',
-            'bullets': [
-                'Developed a comprehensive veterinary CRM system utilizing Qt 3 and Qt 4, enhancing client management.',
-                'Provided on-site support for veterinary computer setups, ensuring seamless CRM hardware installations.',
-                'Collaborated with cross-functional teams to address customer needs and improve system functionality.',
-            ],
-            'page_break_after': True,
-        },
-        {
-            'company': 'Nokia',
-            'title': 'Senior Software Engineer',
-            'period': 'October 2000 \u2013 February 2007 (6 years 5 months)',
-            'bullets': [
-                'Enhanced the software development lifecycle at Nokia through innovative UI development.',
-                'Developed internal tools that streamlined handset software testing processes.',
-                'Enabled mobile phone development in a simulated environment using Microsoft Visual Studio.',
-            ],
-        },
-        {
-            'company': 'EC-Soft Danmark A/S',
-            'title': 'Senior System Software Engineer',
-            'period': 'October 2000 \u2013 December 2001 (1 year 3 months)',
-            'bullets': ['Consultant work for Nokia Denmark A/S developing S30 phones'],
-        },
-        {
-            'company': 'Telenor',
-            'title': 'Contract Software Engineer',
-            'period': 'April 2000 \u2013 June 2000 (3 months)',
-            'bullets': ['Developed a web service for read outlook mails and calendar on phones'],
-        },
-        {
-            'company': 'EC-Soft Norge AS',
-            'title': 'Senior Software Engineer',
-            'period': 'May 2000 \u2013 October 2000 (6 months)',
-            'bullets': ['In house Software Consultant'],
-            'page_break_after': True,
-        },
-        {
-            'company': 'Nokia',
-            'title': 'Contract Software Engineer',
-            'period': 'May 1999 \u2013 March 2000 (11 months)',
-            'bullets': [
-                "Developed user interfaces for Nokia's iconic handset models, including the 3210 and 3310.",
-                'Collaborated with a fellow developer to implement concatenated SMS messaging, enhancing user communication.',
-                'Integrated T9 input support, improving text input efficiency for users.',
-            ],
-        },
-        {
-            'company': 'EC-Soft Danmark A/S',
-            'title': 'Software Consultant',
-            'period': 'May 1999 \u2013 March 2000 (11 months)',
-            'bullets': ['In house software consultant'],
-        },
-        {
-            'company': 'Vizion Factory ApS',
-            'title': 'Software Engineer',
-            'period': 'October 1995 \u2013 April 1999 (3 years 7 months)',
-            'bullets': [
-                'Played a key role in software development and early web solutions, contributing to the burgeoning internet landscape.',
-                'Built applications that addressed emerging needs and developed a training engine paired with a web interface to streamline user interaction.',
-            ],
-        },
-        {
-            'company': 'Greve Kommune',
-            'title': 'Network System Specialist',
-            'period': 'January 1991 \u2013 October 1995 (4 years 10 months)',
-            'bullets': [
-                'Set up new networks to enhance connectivity and efficiency within the organization.',
-                'Provided training to employees on computer use, fostering a tech-savvy workplace.',
-                'Maintained hardware by adding and replacing components, ensuring optimal performance.',
-            ],
-            'page_break_after': True,
-        },
-        {
-            'company': 'Opdal Enterprise',
-            'title': 'Owner',
-            'period': 'September 2008 \u2013 Present (17 years 7 months)',
-            'bullets': ['K\u00f8ge Municipality'],
-        },
-        {
-            'company': 'Home development',
-            'title': 'Developer',
-            'period': 'April 1983 \u2013 Present (43 years)',
-            'bullets': [
-                'Developed Game for C-64, demos for C-64 and Amiga and a task / thread / resource manager for Amiga OS.',
-                'Developed music editor software C-64, Amiga and PC Dos.',
-                'Currently developing Android application for learning purpose and application with Rust and Svelte',
-            ],
-        },
-    ],
-    'repos': [
-        'https://github.com/paletteguy/profile',
-        'https://github.com/Laerdal/vex-kernel-checker',
-        'https://github.com/Laerdal/linux-fslc',
-        'https://github.com/Laerdal/meta-dependencytrack',
-        'https://github.com/Laerdal-Medical/simserver-imager',
-    ],
-    'education_heading': 'Software development',
-    'education': [
-        {
-            'institution': 'Niels Brock',
-            'degree': "Bachelor's Degree, Computer Science",
-            'period': 'September 1990 \u2013 June 1992',
-        },
-        {
-            'institution': 'Niels Brock',
-            'degree': "Bachelor's Degree, Business/Commerce, General",
-            'period': 'August 1988 \u2013 June 1990',
-        },
-        {
-            'institution': 'EFG Handel og Kontor',
-            'degree': 'Basic business school',
-            'period': 'August 1987 \u2013 June 1988',
-        },
-        {
-            'institution': 'Krogaardskolen',
-            'degree': 'High school diploma',
-            'period': '1976 \u2013 1987',
-        },
-    ],
+MONTHS = {
+    'january': 1, 'february': 2, 'march': 3, 'april': 4,
+    'may': 5, 'june': 6, 'july': 7, 'august': 8,
+    'september': 9, 'october': 10, 'november': 11, 'december': 12,
 }
+
+
+def parse_month_year(s):
+    """Parse 'Month Year' into (year, month)."""
+    parts = s.strip().split()
+    return int(parts[1]), MONTHS[parts[0].lower()]
+
+
+def format_period(start_str, end_str):
+    """Format 'Month Year – Month Year (duration)' from start/end strings."""
+    start_y, start_m = parse_month_year(start_str)
+    if end_str.lower() == 'present':
+        today = date.today()
+        end_y, end_m = today.year, today.month
+        end_label = 'Present'
+    else:
+        end_y, end_m = parse_month_year(end_str)
+        end_label = end_str
+
+    total_months = (end_y - start_y) * 12 + (end_m - start_m) + 1
+    years, months = divmod(total_months, 12)
+
+    parts = []
+    if years:
+        parts.append(f'{years} year{"s" if years != 1 else ""}')
+    if months:
+        parts.append(f'{months} month{"s" if months != 1 else ""}')
+    duration = ' '.join(parts) if parts else '1 month'
+
+    return f'{start_str} – {end_label} ({duration})'
 
 
 # ============================================================
@@ -258,36 +54,64 @@ CV_DATA = {
 def generate_docx(data, photo_path):
     doc = Document()
 
+    # -- Size constants (inches) --
+    PAGE_WIDTH = 6.5           # usable width (letter 8.5 minus 1-inch margins)
+    PHOTO_COL_WIDTH = 1.6      # right column for photo
+    PHOTO_IMG_WIDTH = 1.5      # photo slightly narrower than column to avoid clipping
+    CONTACT_COL_WIDTH = PAGE_WIDTH - PHOTO_COL_WIDTH
+
+    # -- Font sizes --
+    NAME_SIZE = Pt(28)
+    TAGLINE_SIZE = Pt(11)
+    DEFAULT_SIZE = Pt(10.5)
+    COMPANY_SIZE = Pt(12)
+    PERIOD_SIZE = Pt(9)
+    CONTACT_LABEL_SIZE = Pt(9)
+    CONTACT_VALUE_SIZE = Pt(10)
+    CONTACT_LINE_SPACING = Pt(11)
+
+    # -- Colors --
+    HEADING_COLOR = RGBColor(0x2E, 0x4A, 0x62)
+    GRAY = RGBColor(0x66, 0x66, 0x66)
+
+    # -- Twips for XML (1 inch = 1440 twips) --
+    def to_twips(inches):
+        return str(int(inches * 1440))
+
+    page_width_twips = to_twips(PAGE_WIDTH)
+    contact_col_twips = to_twips(CONTACT_COL_WIDTH)
+    photo_col_twips = to_twips(PHOTO_COL_WIDTH)
+
     # -- Style defaults --
     style = doc.styles['Normal']
     font = style.font
     font.name = 'Calibri'
-    font.size = Pt(10.5)
+    font.size = DEFAULT_SIZE
 
     # -- Helper functions --
     def add_heading_styled(text, level=1):
         h = doc.add_heading(text, level=level)
         for run in h.runs:
-            run.font.color.rgb = RGBColor(0x2E, 0x4A, 0x62)
+            run.font.color.rgb = HEADING_COLOR
         return h
 
     def add_experience(company, title, period, description_lines):
         p = doc.add_paragraph()
         run = p.add_run(company)
         run.bold = True
-        run.font.size = Pt(12)
+        run.font.size = COMPANY_SIZE
         p.space_after = Pt(0)
 
         p2 = doc.add_paragraph()
         run2 = p2.add_run(title)
         run2.italic = True
-        run2.font.size = Pt(10.5)
+        run2.font.size = DEFAULT_SIZE
         p2.space_after = Pt(0)
 
         p3 = doc.add_paragraph()
         run3 = p3.add_run(period)
-        run3.font.size = Pt(9)
-        run3.font.color.rgb = RGBColor(0x66, 0x66, 0x66)
+        run3.font.size = PERIOD_SIZE
+        run3.font.color.rgb = GRAY
         p3.space_after = Pt(4)
 
         for line in description_lines:
@@ -302,8 +126,8 @@ def generate_docx(data, photo_path):
     h.paragraph_format.space_after = Pt(0)
     h.paragraph_format.space_before = Pt(0)
     for run in h.runs:
-        run.font.color.rgb = RGBColor(0x2E, 0x4A, 0x62)
-        run.font.size = Pt(28)
+        run.font.color.rgb = HEADING_COLOR
+        run.font.size = NAME_SIZE
     # Remove the bottom border that Title style adds
     pPr = h._p.get_or_add_pPr()
     pBdr = pPr.find(qn('w:pBdr'))
@@ -325,13 +149,9 @@ def generate_docx(data, photo_path):
     run = p.add_run(data['tagline'])
     run.bold = True
     run.italic = True
-    run.font.size = Pt(11)
+    run.font.size = TAGLINE_SIZE
 
     # -- Contact table (left: contact, right: photo) --
-    photo_width = Inches(1.4)
-    photo_width_twips = str(int(1.4 * 1440))
-    left_width_twips = str(int((6.5 - 1.4) * 1440))
-    page_width_twips = str(int(6.5 * 1440))
 
     header_table = doc.add_table(rows=1, cols=2)
     header_table.alignment = WD_TABLE_ALIGNMENT.LEFT
@@ -356,6 +176,18 @@ def generate_docx(data, photo_path):
     tblW.set(qn('w:w'), page_width_twips)
     tblW.set(qn('w:type'), 'dxa')
 
+    # Remove default cell margins so photo fills its column
+    tblCellMar = tblPr.makeelement(qn('w:tblCellMar'), {})
+    for edge in ('top', 'left', 'bottom', 'right'):
+        el = tblCellMar.makeelement(qn(f'w:{edge}'), {
+            qn('w:w'): '0', qn('w:type'): 'dxa',
+        })
+        tblCellMar.append(el)
+    old_mar = tblPr.find(qn('w:tblCellMar'))
+    if old_mar is not None:
+        tblPr.remove(old_mar)
+    tblPr.append(tblCellMar)
+
     # Table borders: none
     borders = tblPr.find(qn('w:tblBorders'))
     if borders is not None:
@@ -374,8 +206,8 @@ def generate_docx(data, photo_path):
     if tblGrid is not None:
         tbl.remove(tblGrid)
     tblGrid = tbl.makeelement(qn('w:tblGrid'), {})
-    gridCol1 = tblGrid.makeelement(qn('w:gridCol'), {qn('w:w'): left_width_twips})
-    gridCol2 = tblGrid.makeelement(qn('w:gridCol'), {qn('w:w'): photo_width_twips})
+    gridCol1 = tblGrid.makeelement(qn('w:gridCol'), {qn('w:w'): contact_col_twips})
+    gridCol2 = tblGrid.makeelement(qn('w:gridCol'), {qn('w:w'): photo_col_twips})
     tblGrid.append(gridCol1)
     tblGrid.append(gridCol2)
     tblPr.addnext(tblGrid)
@@ -388,7 +220,7 @@ def generate_docx(data, photo_path):
         if tcW is None:
             tcW = tcPr.makeelement(qn('w:tcW'), {})
             tcPr.append(tcW)
-        tcW.set(qn('w:w'), left_width_twips if i == 0 else photo_width_twips)
+        tcW.set(qn('w:w'), contact_col_twips if i == 0 else photo_col_twips)
         tcW.set(qn('w:type'), 'dxa')
         tcBorders = tcPr.makeelement(qn('w:tcBorders'), {})
         for edge_name in ('top', 'left', 'bottom', 'right'):
@@ -408,30 +240,25 @@ def generate_docx(data, photo_path):
     p = left_cell.paragraphs[0]
     p.paragraph_format.space_after = Pt(0)
     p.paragraph_format.space_before = Pt(0)
-    p.paragraph_format.line_spacing = Pt(11)
+    p.paragraph_format.line_spacing = CONTACT_LINE_SPACING
     contact_lines = [('Contact details', ''), ('', '')] + data['contact']
     for i, (label, value) in enumerate(contact_lines):
         if i > 0:
             p.add_run('\n')
         run_label = p.add_run(label + ' ')
         run_label.bold = True
-        run_label.font.size = Pt(9)
-        run_label.font.color.rgb = RGBColor(0x66, 0x66, 0x66)
+        run_label.font.size = CONTACT_LABEL_SIZE
+        run_label.font.color.rgb = GRAY
         run_value = p.add_run(value)
-        run_value.font.size = Pt(10)
+        run_value.font.size = CONTACT_VALUE_SIZE
 
     # Right cell: photo
     right_cell = header_table.cell(0, 1)
     right_cell.paragraphs[0].clear()
-    right_cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    right_cell.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
     right_cell.paragraphs[0].paragraph_format.space_before = Pt(0)
     right_cell.paragraphs[0].paragraph_format.space_after = Pt(0)
-    img = Image.open(photo_path)
-    img.thumbnail((350, 350))
-    img_stream = io.BytesIO()
-    img.save(img_stream, format='PNG')
-    img_stream.seek(0)
-    right_cell.paragraphs[0].add_run().add_picture(img_stream, width=photo_width)
+    right_cell.paragraphs[0].add_run().add_picture(photo_path, width=Inches(PHOTO_IMG_WIDTH))
 
     # -- Summary --
     add_heading_styled('Summary', level=1)
@@ -455,7 +282,8 @@ def generate_docx(data, photo_path):
     # -- Experience --
     add_heading_styled('Experience', level=1)
     for exp in data['experience']:
-        add_experience(exp['company'], exp['title'], exp['period'], exp['bullets'])
+        period = format_period(exp['start'], exp['end'])
+        add_experience(exp['company'], exp['title'], period, exp['bullets'])
         if exp.get('page_break_after'):
             doc.add_page_break()
 
@@ -491,95 +319,37 @@ def generate_docx(data, photo_path):
 # ============================================================
 
 def generate_md(data):
-    lines = []
+    contact = '\n'.join(f'**{label}** {value}  ' for label, value in data['contact'])
+    header = f'# {data["name"]}\n\n**{data["tagline"]}**\n\n**Contact details**\n\n{contact}'
 
-    # Header table (photo left, contact right)
-    lines.append('<table>')
-    lines.append('<tr>')
-    lines.append('<td width="120" valign="top">')
-    lines.append('')
-    lines.append(f'![{data["name"].split()[0]} {data["name"].split()[-1]}]({data["photo"]})')
-    lines.append('')
-    lines.append('</td>')
-    lines.append('<td>')
-    lines.append('')
-    lines.append(f'# {data["name"]}')
-    lines.append('')
-    lines.append(f'**{data["tagline"]}**')
-    lines.append('')
-    lines.append('**Contact details**<br>')
-    lines.append('<br>')
-    for i, (label, value) in enumerate(data['contact']):
-        suffix = '<br>' if i < len(data['contact']) - 1 else ''
-        lines.append(f'**{label}** {value}{suffix}')
-    lines.append('')
-    lines.append('</td>')
-    lines.append('</tr>')
-    lines.append('</table>')
-    lines.append('')
-    lines.append('---')
-    lines.append('')
+    languages = '\n'.join(f'**{lang}:** {desc}  ' for lang, desc in data['languages'])
 
-    # Summary
-    lines.append('## Summary')
-    lines.append('')
-    lines.append(data['summary'])
-    lines.append('')
-    lines.append('---')
-    lines.append('')
-
-    # Core Skills
-    lines.append('## Core Skills')
-    lines.append('')
-    lines.append(data['skills'])
-    lines.append('')
-    lines.append('---')
-    lines.append('')
-
-    # Languages
-    lines.append('## Languages')
-    lines.append('')
-    for lang, desc in data['languages']:
-        lines.append(f'**{lang}:** {desc}')
-        lines.append('')
-    lines.append('---')
-    lines.append('')
-
-    # Experience
-    lines.append('## Experience')
-    lines.append('')
+    experience_entries = []
     for exp in data['experience']:
-        lines.append(f'### {exp["company"]}')
-        lines.append(f'*{exp["title"]}*')
-        lines.append(exp['period'])
-        lines.append('')
-        for bullet in exp['bullets']:
-            lines.append(f'- {bullet}')
-        lines.append('')
-    lines.append('---')
-    lines.append('')
+        bullets = '\n'.join(f'- {b}' for b in exp['bullets'])
+        experience_entries.append(
+            f'### {exp["company"]}\n*{exp["title"]}*  \n{format_period(exp["start"], exp["end"])}\n\n{bullets}'
+        )
+    experience = '## Experience\n\n' + '\n\n'.join(experience_entries)
 
-    # Github repositories
-    lines.append('## Github repositories')
-    lines.append('')
-    for repo in data['repos']:
-        lines.append(f'- {repo}')
-    lines.append('')
-    lines.append('---')
-    lines.append('')
+    repos = '\n'.join(f'- {repo}' for repo in data['repos'])
 
-    # Education
-    lines.append('## Education')
-    lines.append('')
-    lines.append(f'**{data["education_heading"]}**')
-    lines.append('')
-    for edu in data['education']:
-        lines.append(f'**{edu["institution"]}**')
-        lines.append(edu['degree'])
-        lines.append(edu['period'])
-        lines.append('')
+    edu_entries = '\n\n'.join(
+        f'### {e["institution"]}\n*{e["degree"]}*  \n{e["period"]}' for e in data['education']
+    )
+    education = f'**{data["education_heading"]}**\n\n{edu_entries}'
 
-    return '\n'.join(lines)
+    sections = [
+        header,
+        f'## Summary\n\n{data["summary"]}',
+        f'## Core Skills\n\n{data["skills"]}',
+        f'## Languages\n\n{languages}',
+        experience,
+        f'## Github repositories\n\n{repos}',
+        f'## Education\n\n{education}',
+    ]
+
+    return '\n\n---\n\n'.join(sections) + '\n'
 
 
 # ============================================================
@@ -588,17 +358,19 @@ def generate_md(data):
 
 if __name__ == '__main__':
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    photo_path = os.path.join(script_dir, 'me.png')
+    with open(os.path.join(script_dir, 'cv_data.json'), encoding='utf-8') as f:
+        cv_data = json.load(f)
+    photo_path = os.path.join(script_dir, cv_data['photo'])
 
     # Generate .docx
     docx_name = 'Karsten Opdal - CV.docx'
-    doc = generate_docx(CV_DATA, photo_path)
+    doc = generate_docx(cv_data, photo_path)
     doc.save(docx_name)
     print(f'Saved to: {docx_name}')
 
     # Generate README.md
     md_name = os.path.join(script_dir, 'README.md')
-    md_content = generate_md(CV_DATA)
+    md_content = generate_md(cv_data)
     with open(md_name, 'w', encoding='utf-8') as f:
         f.write(md_content)
     print(f'Saved to: {md_name}')

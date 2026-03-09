@@ -1,30 +1,17 @@
-<table>
-<tr>
-<td width="120" valign="top">
-
-![Karsten Opdal](me.png)
-
-</td>
-<td>
-
 # Karsten Sperling Opdal
 
 **Developing Embedded Systems into the future of AI**
 
-**Contact details**<br>
-<br>
-**Company:** Opdal Enterprise<br>
-**CVR:** 31357667<br>
-**Address:** Nordvangen 13, DK-4600 Køge<br>
-**Phone:** +45 42 40 42 82<br>
-**Email:** karsten.s.opdal@gmail.com<br>
-**LinkedIn:** https://linkedin.com/in/karstenopdal-7a11512<br>
-**Web:** https://opdal.dk<br>
-**GitHub profile:** https://github.com/paletteguy
+**Contact details**
 
-</td>
-</tr>
-</table>
+**Company:** Opdal Enterprise  
+**CVR:** 31357667  
+**Address:** Nordvangen 13, DK-4600 Køge  
+**Phone:** +45 42 40 42 82  
+**Email:** karsten.s.opdal@gmail.com  
+**LinkedIn:** https://linkedin.com/in/karstenopdal-7a11512  
+**Web:** https://opdal.dk  
+**GitHub profile:** https://github.com/paletteguy  
 
 ---
 
@@ -46,28 +33,24 @@ Copenhagen, Denmark | Open to remote across Europe
 
 ## Core Skills
 
-C++ (C++23) · Embedded Linux · Yocto · Linux kernel · Qt/QML (Qt 3–6) · Python · WiFi/Bluetooth · CI/CD · Boost · AI-assisted engineering
+C++ (C++23) · Embedded Linux · Yocto · Linux kernel · Qt/QML (Qt 3–6) · Python · Rust · WiFi/Bluetooth · CI/CD · Boost · AI-assisted engineering
 
 ---
 
 ## Languages
 
-**Danish:** Native speaker (written and spoken)
-
-**English:** Fluent — second language used throughout career, full professional proficiency
-
-**Norwegian:** Fluent understanding (spoken and written), conversational speaking — 25 years' exposure, Norwegian spouse
-
-**Swedish:** Strong understanding (spoken and written), near-conversational speaking — 30 years' exposure, neighbouring country
-
-**German:** Good understanding (spoken and written), speaking somewhat rusty — 10 years during education
+**Danish:** Native speaker (written and spoken)  
+**English:** Fluent — second language used throughout career, full professional proficiency  
+**Norwegian:** Fluent understanding (spoken and written), conversational speaking — 25 years' exposure, Norwegian spouse  
+**Swedish:** Strong understanding (spoken and written), near-conversational speaking — 30 years' exposure, neighbouring country  
+**German:** Good understanding (spoken and written), speaking somewhat rusty — 10 years during education  
 
 ---
 
 ## Experience
 
 ### Laerdal Medical
-*Senior Software Engineer Consulting*
+*Senior Software Engineer Consulting*  
 October 2010 – February 2026 (15 years 5 months)
 
 - Senior Embedded Software Engineer / Build System Architect for SimPad devices / simulators and SimMan3G product lines.
@@ -82,13 +65,13 @@ October 2010 – February 2026 (15 years 5 months)
 - Built Jira Analyse Companion — AI-powered diagnostic platform using Claude/Gemini/OpenAI for crash analysis across SimPad, LinkBox, and CAN firmware. Jira automation, source context integration. Delivered as CLI, VS Code extension, and Tauri desktop app.
 
 ### Oscilloscope
-*Senior Software Engineer Consulting*
+*Senior Software Engineer Consulting*  
 October 2010 – June 2019 (8 years 9 months)
 
 - Freelance
 
 ### Nokia
-*Software Engineering Specialist*
+*Software Engineering Specialist*  
 April 2010 – October 2010 (7 months)
 
 - I excelled in identifying and resolving complex firmware issues at Nokia, significantly enhancing product performance.
@@ -97,7 +80,7 @@ April 2010 – October 2010 (7 months)
 - Developed critical skills in embedded systems analysis and problem-solving within a leading technology company.
 
 ### Nokia Mobile Phones
-*Senior Software Engineering Consultant*
+*Senior Software Engineering Consultant*  
 September 2008 – February 2010 (1 year 6 months)
 
 - Provided expert consultation on the S40 platform software, focusing on bug fixing and error correction.
@@ -105,7 +88,7 @@ September 2008 – February 2010 (1 year 6 months)
 - Collaborated with cross-functional teams to ensure timely resolution of software defects, improving user experience.
 
 ### Infineon
-*Software Expert*
+*Software Expert*  
 October 2007 – September 2008 (1 year)
 
 - Developed the Nokia 2110 low-cost phone platform during an expat assignment in Copenhagen.
@@ -113,13 +96,13 @@ October 2007 – September 2008 (1 year)
 - Delivered high-quality software under tight deadlines, focusing on minimizing resource usage.
 
 ### Thorsø Data
-*Software Expert*
+*Software Expert*  
 October 2007 – September 2008 (1 year)
 
 - In house Senior Contract Software Engineer
 
 ### Tang-Data A/S
-*Senior Software Engineer*
+*Senior Software Engineer*  
 March 2007 – October 2007 (8 months)
 
 - Developed a comprehensive veterinary CRM system utilizing Qt 3 and Qt 4, enhancing client management.
@@ -127,54 +110,54 @@ March 2007 – October 2007 (8 months)
 - Collaborated with cross-functional teams to address customer needs and improve system functionality.
 
 ### Nokia
-*Senior Software Engineer*
-October 2000 – February 2007 (6 years 5 months)
+*Senior Software Engineer*  
+September 2000 – February 2007 (6 years 6 months)
 
 - Enhanced the software development lifecycle at Nokia through innovative UI development.
 - Developed internal tools that streamlined handset software testing processes.
 - Enabled mobile phone development in a simulated environment using Microsoft Visual Studio.
 
 ### EC-Soft Danmark A/S
-*Senior System Software Engineer*
+*Senior System Software Engineer*  
 October 2000 – December 2001 (1 year 3 months)
 
 - Consultant work for Nokia Denmark A/S developing S30 phones
 
 ### Telenor
-*Contract Software Engineer*
-April 2000 – June 2000 (3 months)
+*Contract Software Engineer*  
+March 2000 – August 2000 (6 months)
 
 - Developed a web service for read outlook mails and calendar on phones
 
 ### EC-Soft Norge AS
-*Senior Software Engineer*
-May 2000 – October 2000 (6 months)
+*Senior Software Engineer*  
+March 2000 – September 2000 (7 months)
 
 - In house Software Consultant
 
 ### Nokia
-*Contract Software Engineer*
-May 1999 – March 2000 (11 months)
+*Contract Software Engineer*  
+May 1999 – February 2000 (10 months)
 
 - Developed user interfaces for Nokia's iconic handset models, including the 3210 and 3310.
 - Collaborated with a fellow developer to implement concatenated SMS messaging, enhancing user communication.
 - Integrated T9 input support, improving text input efficiency for users.
 
 ### EC-Soft Danmark A/S
-*Software Consultant*
-May 1999 – March 2000 (11 months)
+*Software Consultant*  
+May 1999 – February 2000 (10 months)
 
 - In house software consultant
 
 ### Vizion Factory ApS
-*Software Engineer*
+*Software Engineer*  
 October 1995 – April 1999 (3 years 7 months)
 
 - Played a key role in software development and early web solutions, contributing to the burgeoning internet landscape.
 - Built applications that addressed emerging needs and developed a training engine paired with a web interface to streamline user interaction.
 
 ### Greve Kommune
-*Network System Specialist*
+*Network System Specialist*  
 January 1991 – October 1995 (4 years 10 months)
 
 - Set up new networks to enhance connectivity and efficiency within the organization.
@@ -182,13 +165,13 @@ January 1991 – October 1995 (4 years 10 months)
 - Maintained hardware by adding and replacing components, ensuring optimal performance.
 
 ### Opdal Enterprise
-*Owner*
+*Owner*  
 September 2008 – Present (17 years 7 months)
 
 - Køge Municipality
 
 ### Home development
-*Developer*
+*Developer*  
 April 1983 – Present (43 years)
 
 - Developed Game for C-64, demos for C-64 and Amiga and a task / thread / resource manager for Amiga OS.
@@ -211,18 +194,18 @@ April 1983 – Present (43 years)
 
 **Software development**
 
-**Niels Brock**
-Bachelor's Degree, Computer Science
+### Niels Brock
+*Bachelor's Degree, Computer Science*  
 September 1990 – June 1992
 
-**Niels Brock**
-Bachelor's Degree, Business/Commerce, General
+### Niels Brock
+*Bachelor's Degree, Business/Commerce, General*  
 August 1988 – June 1990
 
-**EFG Handel og Kontor**
-Basic business school
+### EFG Handel og Kontor
+*Basic business school*  
 August 1987 – June 1988
 
-**Krogaardskolen**
-High school diploma
+### Krogaardskolen
+*High school diploma*  
 1976 – 1987
