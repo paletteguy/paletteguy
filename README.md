@@ -151,18 +151,24 @@ May 1999 – February 2000 (10 months)
 
 ### Vizion Factory ApS
 *Software Engineer*  
-October 1995 – April 1999 (3 years 7 months)
+December 1996 – April 1999 (2 years 5 months)
 
 - Played a key role in software development and early web solutions, contributing to the burgeoning internet landscape.
 - Built applications that addressed emerging needs and developed a training engine paired with a web interface to streamline user interaction.
 
 ### Greve Kommune
 *Network System Specialist*  
-January 1991 – October 1995 (4 years 10 months)
+January 1993 – October 1996 (3 years 10 months)
 
 - Set up new networks to enhance connectivity and efficiency within the organization.
 - Provided training to employees on computer use, fostering a tech-savvy workplace.
 - Maintained hardware by adding and replacing components, ensuring optimal performance.
+
+### Military Service
+*Recruit*  
+February 1992 – October 1992 (9 months)
+
+- Danish Army, HAWK‑eskadrille at Stevnsfortet, Zealand
 
 ### Opdal Enterprise
 *Owner*  
@@ -177,6 +183,13 @@ April 1983 – Present (43 years)
 - Developed Game for C-64, demos for C-64 and Amiga and a task / thread / resource manager for Amiga OS.
 - Developed music editor software C-64, Amiga and PC Dos.
 - Currently developing Android application for learning purpose and application with Rust and Svelte
+
+### Hjemmeværnet
+*Volunteer*  
+April 2002 – Present (24 years)
+
+- Danish Home Guard, Hjemmeværnet, Køge, Zealand
+- Trained in basic military skills and regularly participate in exercises and operations to support national defense and civil authorities.
 
 ---
 
@@ -196,7 +209,7 @@ April 1983 – Present (43 years)
 
 ### Niels Brock
 *Bachelor's Degree, Computer Science*  
-September 1990 – June 1992
+August 1990 – January 1992
 
 ### Niels Brock
 *Bachelor's Degree, Business/Commerce, General*  
@@ -204,7 +217,7 @@ August 1988 – June 1990
 
 ### EFG Handel og Kontor
 *Basic business school*  
-August 1987 – June 1988
+August 1987 – Juni 1988
 
 ### Krogaardskolen
 *High school diploma*  
