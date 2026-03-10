@@ -12,8 +12,8 @@
         ["Web:", "https://opdal.dk"],
         ["GitHub profile:", "https://github.com/paletteguy"]
     ],
-    "summary": "I make embedded Linux do what it's told — on hardware where failure isn't an option.\n\nFor 15 years at Laerdal Medical, I was the architect behind SimPad's embedded platform — owning everything from the Yocto build system delivering production Linux across ARM and x86, to the real-time simulation engine that brings medical manikins to life via CAN bus, IOC controllers, and physiological modelling. I evolved the build system through six major Yocto releases (Rocko to Scarthgap), migrated the platform from Ubuntu to a custom distribution with RAUC A/B OTA updates and HSM-signed security, and architected CI/CD pipelines with SBOM generation and CVE tracking for medical device compliance. Along the way I built Qt/QML touch-screen UIs, ALSA audio pipelines, WiFi/Bluetooth integration (with patches contributed to BlueZ and Qt Bluetooth), and a suite of internal tools — from an AI-powered diagnostic platform to an SSH certificate portal and a cross-platform device imager.\n\nBefore Laerdal, I spent a decade in the Nokia ecosystem — developing the user interfaces for the iconic 3210 and 3310, implementing concatenated SMS and T9 input, and building simulation tools that let engineers develop phone software in Visual Studio without touching hardware. I debugged firmware issues nobody else could crack, including a battery drain bug that improved battery lifetime by 30%. At Infineon, I shipped the Nokia 2110 low-cost platform where every kilobyte counted.\n\nI own the full stack from silicon to screen: board bring-up on i.MX6, i.MX8, and x86, Linux kernel debugging and Device Tree customization, C++ services in real-time, and secure OTA deployment. I've integrated AI deeply into my engineering workflow — from AI-assisted code generation and review to building custom tooling around LLMs for debugging and documentation.\n\n30+ years from Nokia handsets to medical devices. Now looking for the next platform worth building.\n\nCopenhagen, Denmark | Open to remote across Europe",
-    "skills": "C++ (C++23) · Embedded Linux · Yocto · Linux kernel · Qt/QML (Qt 3–6) · Python · Rust · WiFi/Bluetooth · CI/CD · Boost · AI-assisted engineering",
+    "summary": "An embedded Linux specialist who makes hardware do what it's told — where failure isn't an option.\n\n30+ years spanning Nokia handsets, Infineon baseband platforms, and medical simulation devices. He owns the full stack from silicon to screen: Yocto build systems, kernel bring-up, real-time C++ services, CI/CD pipelines, and secure OTA deployment. AI is deeply integrated into his engineering workflow.\n\nNow looking for the next platform worth building.\n\nCopenhagen, Denmark | Open to remote across Europe",
+    "skills": "C · C++ (C++23) · Embedded Linux · Yocto · Linux kernel · Qt/QML (Qt 3–6) · Python · Rust · WiFi/Bluetooth · CI/CD · GitHub Actions · Boost · Azure · Secure boot · FastAPI · Tauri · AI-assisted engineering",
     "languages": [
         ["Danish", "Native speaker (written and spoken)"],
         ["English", "Fluent — second language used throughout career, full professional proficiency"],
@@ -32,13 +32,18 @@
                 "Lead maintainer of Yocto/OpenEmbedded build platform delivering production Linux across ARM32, ARM64, x86-32, and x86-64. Evolved through six major Yocto releases (Rocko to Scarthgap). Migrated from Ubuntu to custom distribution with RAUC A/B OTA updates and Azure Key Vault HSM signing.",
                 "Architected multi-platform CI/CD pipelines with GitHub Actions, SBOM generation, and automated CVE tracking for medical device compliance.",
                 "Linux kernel configuration, debugging, patching, and Device Tree customization across i.MX6, i.MX8M Plus, and Intel x86 — board bring-up, peripheral enablement, pin muxing, clock trees, and driver troubleshooting.",
-                "Developed real-time simulation engine controlling medical manikins (SimMom, SimBaby, MammaAnne, SimMan ALS) via CAN bus or IOC controller and physiological modelling. C++ (up to C++23) with Boost, Qt 3–6 with deep QML expertise for embedded UIs. Proficient in C#.",
-                "ALSA audio pipelines for clinical simulation. Bluetooth expert with patches to BlueZ and Qt Bluetooth stacks.",
-                "Created SimServer Imager (Qt6/C++/QML) for managed WIC/VSI/SPU deployment and CDN distribution. Built VEX Kernel Checker — AI-assisted CVE analysis integrated with Dependency-Track.",
+                "Developed real-time simulation engine controlling medical manikins (SimMom, SimBaby, MammaAnne, SimMan ALS) via CAN bus or IOC controller and physiological modelling. C++ (up to C++23) with Boost.",
+                "Designed and developed SimPad touch-screen UI using Qt 4–5 with QML for embedded interfaces.",
+                "Proficient in C#, used for LLEAP development.",
+                "WiFi connectivity and ALSA audio pipelines for clinical simulation. Bluetooth expert with patches contributed to BlueZ and Qt Bluetooth stacks.",
+                "Applied EU Radio Equipment Directive (RED) compliance — hardened Linux kernel configuration, implemented secure boot, and built a CVE checker tool that analyzed whether kernel config options introduced known vulnerabilities or whether existing patches already addressed them.",
+                "Created SimServer Imager (Qt6/C++/QML, based on Raspberry Pi Imager) for managed WIC/VSI/SPU deployment and CDN distribution.",
+                "Built VEX Kernel Checker — AI-assisted Kernel CVE analysis integrated with Dependency-Track.",
                 "Built SSH Certificate Portal (FastAPI/Python) — self-service time-limited SSH certificates with Azure AD OIDC, HSM-protected CA signing (RSA/ED25519/ECDSA), deployed on Azure App Service.",
                 "Designed Azure Key Vault HSM signing workflow for RAUC bundles and secure boot — non-exportable keys, automated renewal via Azure Automation, multi-environment CI integration.",
                 "Built Jira Analyse Companion — AI-powered diagnostic platform using Claude/Gemini/OpenAI for crash analysis across SimPad, LinkBox, and CAN firmware. Jira automation, source context integration. Delivered as CLI, VS Code extension, and Tauri desktop app."
             ],
+            "skills": ["C++", "C++23", "Boost", "C#", "Rust", "Python", "Bash", "JavaScript", "TypeScript", "Yocto", "Linux kernel", "Device Tree (DTB)", "ARM (i.MX6/i.MX8)", "x86", "Qt 4", "Qt 5", "Qt 6", "QML", "FastAPI", "RAUC", "Azure", "GitHub Actions", "CAN bus", "ALSA", "WiFi", "Bluetooth", "BlueZ", "Tauri", "Secure boot", "RED", "Security", "GDPR", "FIPS 140", "NIST SP 800-171", "Unit testing", "TDD", "OOD", "System architecture", "Software architecture", "WCF", "XAML", "MAUI"],
             "page_break_after": true
         },
         {
@@ -58,7 +63,8 @@
                 "Specialized in debugging intricate hardware/software interaction bugs on mobile platforms.",
                 "Successfully fixed a battery drain issue that had persisted for years, improving battery lifetime by 30%.",
                 "Developed critical skills in embedded systems analysis and problem-solving within a leading technology company."
-            ]
+            ],
+            "skills": ["C", "C++", "Linux", "BSD", "Unix", "Embedded firmware", "Debugging", "Lithium battery management", "Teaching", "Developer support"]
         },
         {
             "company": "Nokia Mobile Phones",
@@ -70,6 +76,7 @@
                 "Debugged firmware issues across the S40 software stack to enhance performance and reliability.",
                 "Collaborated with cross-functional teams to ensure timely resolution of software defects, improving user experience."
             ],
+            "skills": ["C", "C++", "S40 platform", "Firmware debugging", "Visual Studio plugin", "BSD", "Linux", "Unix", "Bash"],
             "page_break_after": true
         },
         {
@@ -81,7 +88,8 @@
                 "Developed the Nokia 2110 low-cost phone platform during an expat assignment in Copenhagen.",
                 "Optimized embedded software for resource-constrained hardware, ensuring efficient use of memory.",
                 "Delivered high-quality software under tight deadlines, focusing on minimizing resource usage."
-            ]
+            ],
+            "skills": ["C", "Embedded software", "Memory optimization", "Linux", "Unix", "BSD", "Expat", "Mentoring"]
         },
         {
             "company": "Thorsø Data",
@@ -100,6 +108,7 @@
                 "Provided on-site support for veterinary computer setups, ensuring seamless CRM hardware installations.",
                 "Collaborated with cross-functional teams to address customer needs and improve system functionality."
             ],
+            "skills": ["C++", "Qt 3", "Qt 4", "Linux", "CRM", "OOD", "Teaching end users"],
             "page_break_after": true
         },
         {
@@ -110,8 +119,10 @@
             "bullets": [
                 "Enhanced the software development lifecycle at Nokia through innovative UI development.",
                 "Developed internal tools that streamlined handset software testing processes.",
-                "Enabled mobile phone development in a simulated environment using Microsoft Visual Studio."
-            ]
+                "Enabled mobile phone development in a simulated environment using Microsoft Visual Studio.",
+                "Developed a music player database using SQLite on a memory-constrained S30 embedded device, using test-driven development as the player and UI were not yet available."
+            ],
+            "skills": ["C", "C++", "Visual Studio", "wxWidgets", "Qt 3", "Unix", "BSD", "Simulation", "UI development", "SQLite", "TDD", "OOD", "WCF", "XAML"]
         },
         {
             "company": "EC-Soft Danmark A/S",
@@ -125,7 +136,8 @@
             "title": "Contract Software Engineer",
             "start": "March 2000",
             "end": "August 2000",
-            "bullets": ["Developed a web service for read outlook mails and calendar on phones"]
+            "bullets": ["Developed a web service enabling mobile access to Outlook email and calendar via WAP, one of the earliest mobile web integrations."],
+            "skills": ["Microsoft Visual Basic# (.NET)", "REST API", "Web Server", "WAP"]
         },
         {
             "company": "EC-Soft Norge AS",
@@ -142,9 +154,11 @@
             "end": "February 2000",
             "bullets": [
                 "Developed user interfaces for Nokia's iconic handset models, including the 3210 and 3310.",
-                "Collaborated with a fellow developer to implement concatenated SMS messaging, enhancing user communication.",
-                "Integrated T9 input support, improving text input efficiency for users."
-            ]
+                "SMS domain expert with full knowledge of 2G protocols. Collaborated with a fellow developer to implement concatenated SMS messaging.",
+                "Integrated T9 input support, improving text input efficiency for users.",
+                "Improved memory management on the S30 platform, optimizing resource usage on constrained hardware."
+            ],
+            "skills": ["C", "Unix", "BSD", "2G protocols", "SMS expert", "T9", "UI development", "S30 platform", "Memory optimization"]
         },
         {
             "company": "EC-Soft Danmark A/S",
@@ -156,23 +170,39 @@
         {
             "company": "Vizion Factory ApS",
             "title": "Software Engineer",
-            "start": "December 1996",
+            "start": "December 1997",
             "end": "April 1999",
             "bullets": [
                 "Played a key role in software development and early web solutions, contributing to the burgeoning internet landscape.",
-                "Built applications that addressed emerging needs and developed a training engine paired with a web interface to streamline user interaction."
-            ]
+                "Built applications that addressed emerging needs and developed a training engine paired with a web interface to streamline user interaction.",
+                "Developed a web browser in Delphi Pascal to render HTML-based training materials.",
+                "Created screensavers using DirectX for 3D rendering."
+            ],
+            "skills": ["Delphi Pascal", "OOD", "Windows", "Windows COM+", "DirectX", "Assembler x86", "Web development"]
         },
         {
             "company": "Greve Kommune",
             "title": "Network System Specialist",
             "start": "January 1993",
-            "end": "October 1996",
+            "end": "October 1997",
             "bullets": [
                 "Set up new networks to enhance connectivity and efficiency within the organization.",
+                {
+                    "text": "Led network evolution:",
+                    "sub": [
+                        "1 Mbit coaxial LAN",
+                        "10 Mbit (10BASE-T)",
+                        "100 Mbit UTP (100BASE-TX)"
+                    ]
+                },
                 "Provided training to employees on computer use, fostering a tech-savvy workplace.",
-                "Maintained hardware by adding and replacing components, ensuring optimal performance."
+                "Maintained hardware by adding and replacing components, ensuring optimal performance.",
+                "Built a database system for time registration and contractor management using Microsoft Visual Access.",
+                "Created celebration cards and information posters using CorelDRAW.",
+                "Developed WordPerfect macros to standardize letter templates for Greve Kommune's new visual identity.",
+                "Participated in transition from WordPerfect to Microsoft Office (Word, Excel), including user training and template migration."
             ],
+            "skills": ["Ethernet Protocol", "Coaxial LAN (1 Mbit)", "10BASE-T", "100BASE-TX UTP", "TCP/IP", "Managed networking", "Hardware", "WordPerfect", "Microsoft Office", "Microsoft Visual Access", "Database development", "CorelDRAW", "Teaching"],
             "page_break_after": true
         },
                 {
@@ -198,7 +228,8 @@
                 "Developed Game for C-64, demos for C-64 and Amiga and a task / thread / resource manager for Amiga OS.",
                 "Developed music editor software C-64, Amiga and PC Dos.",
                 "Currently developing Android application for learning purpose and application with Rust and Svelte"
-            ]
+            ],
+            "skills": ["C-64", "Amiga", "Assembler 6502/68000", "C++", "C#", "Python", "Rust", "Svelte", "Android", "GitHub", "Azure", "AWS", "Web API", "OOD"]
         },
                 {
             "company": "Hjemmeværnet",

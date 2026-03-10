@@ -95,7 +95,7 @@ def generate_docx(data, photo_path):
             run.font.color.rgb = HEADING_COLOR
         return h
 
-    def add_experience(company, title, period, description_lines):
+    def add_experience(company, title, period, description_lines, skills=None):
         p = doc.add_paragraph()
         run = p.add_run(company)
         run.bold = True
@@ -115,8 +115,27 @@ def generate_docx(data, photo_path):
         p3.space_after = Pt(4)
 
         for line in description_lines:
-            p4 = doc.add_paragraph(line, style='List Bullet')
-            p4.paragraph_format.space_after = Pt(2)
+            if isinstance(line, dict):
+                p4 = doc.add_paragraph(line['text'], style='List Bullet')
+                p4.paragraph_format.space_after = Pt(0)
+                for sub in line.get('sub', []):
+                    p5 = doc.add_paragraph(sub, style='List Bullet 2')
+                    p5.paragraph_format.space_after = Pt(0)
+            else:
+                p4 = doc.add_paragraph(line, style='List Bullet')
+                p4.paragraph_format.space_after = Pt(2)
+
+        if skills:
+            p5 = doc.add_paragraph()
+            p5.paragraph_format.space_before = Pt(2)
+            p5.paragraph_format.space_after = Pt(0)
+            run_label = p5.add_run('Skills: ')
+            run_label.bold = True
+            run_label.font.size = PERIOD_SIZE
+            run_label.font.color.rgb = GRAY
+            run_skills = p5.add_run(' · '.join(skills))
+            run_skills.font.size = PERIOD_SIZE
+            run_skills.font.color.rgb = GRAY
 
         # Small spacer
         doc.add_paragraph().paragraph_format.space_before = Pt(4)
@@ -283,7 +302,7 @@ def generate_docx(data, photo_path):
     add_heading_styled('Experience', level=1)
     for exp in data['experience']:
         period = format_period(exp['start'], exp['end'])
-        add_experience(exp['company'], exp['title'], period, exp['bullets'])
+        add_experience(exp['company'], exp['title'], period, exp['bullets'], exp.get('skills'))
         if exp.get('page_break_after'):
             doc.add_page_break()
 
@@ -326,9 +345,20 @@ def generate_md(data):
 
     experience_entries = []
     for exp in data['experience']:
-        bullets = '\n'.join(f'- {b}' for b in exp['bullets'])
+        bullet_lines = []
+        for b in exp['bullets']:
+            if isinstance(b, dict):
+                bullet_lines.append(f'- {b["text"]}')
+                for sub in b.get('sub', []):
+                    bullet_lines.append(f'  - {sub}')
+            else:
+                bullet_lines.append(f'- {b}')
+        bullets = '\n'.join(bullet_lines)
+        skills_line = ''
+        if exp.get('skills'):
+            skills_line = f'\n\n**Skills:** {" · ".join(exp["skills"])}'
         experience_entries.append(
-            f'### {exp["company"]}\n*{exp["title"]}*  \n{format_period(exp["start"], exp["end"])}\n\n{bullets}'
+            f'### {exp["company"]}\n*{exp["title"]}*  \n{format_period(exp["start"], exp["end"])}\n\n{bullets}{skills_line}'
         )
     experience = '## Experience\n\n' + '\n\n'.join(experience_entries)
 
