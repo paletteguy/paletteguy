@@ -12,7 +12,7 @@
         ["Web:", "https://opdal.dk"],
         ["GitHub profile:", "https://github.com/paletteguy"]
     ],
-    "summary": "An embedded Linux specialist who makes hardware do what it's told — where failure isn't an option.\n\n30+ years spanning Nokia handsets, Infineon baseband platforms, and medical simulation devices. He owns the full stack from silicon to screen: Yocto build systems, kernel bring-up, real-time C++ services, CI/CD pipelines, and secure OTA deployment. AI is deeply integrated into his engineering workflow.\n\nNow looking for the next platform worth building.\n\nCopenhagen, Denmark | Open to remote across Europe",
+    "summary": "An embedded Linux specialist bringing embedded platforms to life — reliably and securely.\n\n30+ years spanning Nokia handsets, Infineon baseband platforms, and medical simulation devices. He owns the full stack from silicon to screen: Yocto build systems, kernel bring-up, real-time C++ services, Qt/QML interfaces, CI/CD pipelines, secure OTA deployment, and security hardening (secure boot, RED, FIPS 140). Builds his own tools — from AI-powered crash analyzers to HSM-backed certificate portals. AI is deeply integrated into his engineering workflow.\n\nReady to help design and architect the next embedded system, where security is the foundation.\n\nCopenhagen, Denmark | Open to remote across Europe",
     "skills": "C · C++ (C++23) · Embedded Linux · Yocto · Linux kernel · Qt/QML (Qt 3–6) · Python · Rust · WiFi/Bluetooth · CI/CD · GitHub Actions · Boost · Azure · Secure boot · FastAPI · Tauri · AI-assisted engineering",
     "languages": [
         ["Danish", "Native speaker (written and spoken)"],

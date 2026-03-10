@@ -54,6 +54,10 @@ def format_period(start_str, end_str):
 def generate_docx(data, photo_path):
     doc = Document()
 
+    # -- Page margins --
+    for section in doc.sections:
+        section.top_margin = Inches(0.5)
+
     # -- Size constants (inches) --
     PAGE_WIDTH = 6.5           # usable width (letter 8.5 minus 1-inch margins)
     PHOTO_COL_WIDTH = 1.6      # right column for photo
@@ -93,39 +97,54 @@ def generate_docx(data, photo_path):
         h = doc.add_heading(text, level=level)
         for run in h.runs:
             run.font.color.rgb = HEADING_COLOR
+        h.paragraph_format.keep_with_next = True
         return h
 
-    def add_experience(company, title, period, description_lines, skills=None):
+    def add_experience(company, title, period, description_lines, skills=None,
+                       page_break_before=False):
+        # Header: company + title + period stay with first bullet
         p = doc.add_paragraph()
+        if page_break_before:
+            p.paragraph_format.page_break_before = True
         run = p.add_run(company)
         run.bold = True
         run.font.size = COMPANY_SIZE
         p.space_after = Pt(0)
+        p.paragraph_format.keep_with_next = True
 
         p2 = doc.add_paragraph()
         run2 = p2.add_run(title)
         run2.italic = True
         run2.font.size = DEFAULT_SIZE
         p2.space_after = Pt(0)
+        p2.paragraph_format.keep_with_next = True
 
         p3 = doc.add_paragraph()
         run3 = p3.add_run(period)
         run3.font.size = PERIOD_SIZE
         run3.font.color.rgb = GRAY
         p3.space_after = Pt(4)
+        p3.paragraph_format.keep_with_next = True
 
+        last_bullet = None
         for line in description_lines:
             if isinstance(line, dict):
                 p4 = doc.add_paragraph(line['text'], style='List Bullet')
                 p4.paragraph_format.space_after = Pt(0)
+                last_bullet = p4
                 for sub in line.get('sub', []):
                     p5 = doc.add_paragraph(sub, style='List Bullet 2')
                     p5.paragraph_format.space_after = Pt(0)
+                    last_bullet = p5
             else:
                 p4 = doc.add_paragraph(line, style='List Bullet')
                 p4.paragraph_format.space_after = Pt(2)
+                last_bullet = p4
 
         if skills:
+            # Keep last bullet attached to skills line
+            if last_bullet:
+                last_bullet.paragraph_format.keep_with_next = True
             p5 = doc.add_paragraph()
             p5.paragraph_format.space_before = Pt(2)
             p5.paragraph_format.space_after = Pt(0)
@@ -296,24 +315,31 @@ def generate_docx(data, photo_path):
         run.bold = True
         p.add_run(desc)
 
-    doc.add_page_break()
-
     # -- Experience --
-    add_heading_styled('Experience', level=1)
-    for exp in data['experience']:
-        period = format_period(exp['start'], exp['end'])
-        add_experience(exp['company'], exp['title'], period, exp['bullets'], exp.get('skills'))
-        if exp.get('page_break_after'):
-            doc.add_page_break()
+    h = add_heading_styled('Experience', level=1)
+    h.paragraph_format.page_break_before = True
 
-    doc.add_page_break()
+    # Convert page_break_after flags to page_break_before on the next entry
+    experience = data['experience']
+    for i, exp in enumerate(experience):
+        prev_break = (i > 0 and experience[i - 1].get('page_break_after'))
+        # Large entries (many bullets) get a fresh page to avoid splits
+        bullet_count = sum(1 + len(b.get('sub', [])) if isinstance(b, dict) else 1
+                          for b in exp['bullets'])
+        large_entry = bullet_count > 6
+        start_new_page = prev_break or (large_entry and i > 0)
+        period = format_period(exp['start'], exp['end'])
+        add_experience(exp['company'], exp['title'], period, exp['bullets'],
+                       exp.get('skills'), page_break_before=start_new_page)
 
     # -- Github Repositories --
-    add_heading_styled('Github repositories', level=1)
+    h = add_heading_styled('Github repositories', level=1)
+    h.paragraph_format.page_break_before = True
     for repo in data['repos']:
         p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.keep_with_next = True
         p.add_run(repo)
 
     # -- Education --

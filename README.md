@@ -17,11 +17,11 @@
 
 ## Summary
 
-An embedded Linux specialist who makes hardware do what it's told — where failure isn't an option.
+An embedded Linux specialist bringing embedded platforms to life — reliably and securely.
 
-30+ years spanning Nokia handsets, Infineon baseband platforms, and medical simulation devices. He owns the full stack from silicon to screen: Yocto build systems, kernel bring-up, real-time C++ services, CI/CD pipelines, and secure OTA deployment. AI is deeply integrated into his engineering workflow.
+30+ years spanning Nokia handsets, Infineon baseband platforms, and medical simulation devices. He owns the full stack from silicon to screen: Yocto build systems, kernel bring-up, real-time C++ services, Qt/QML interfaces, CI/CD pipelines, secure OTA deployment, and security hardening (secure boot, RED, FIPS 140). Builds his own tools — from AI-powered crash analyzers to HSM-backed certificate portals. AI is deeply integrated into his engineering workflow.
 
-Now looking for the next platform worth building.
+Ready to help design and architect the next embedded system, where security is the foundation.
 
 Copenhagen, Denmark | Open to remote across Europe
 
